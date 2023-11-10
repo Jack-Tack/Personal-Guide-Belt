@@ -7,6 +7,7 @@ SoftwareSerial mySerial(11, 10); // RX, TX
 
 void setup()
 {
+  //This is where the motor will be connected
   pinMode(7, OUTPUT);
   Serial.begin(115200);
   mySerial.begin(115200);
