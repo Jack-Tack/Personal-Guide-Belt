@@ -1,13 +1,3 @@
-/*!
- * @file  DFRobot_TFmini_test.ino
- * @brief This example use TFmini to measure distance
- * @n With initialization completed, we can get distance value and signal strength
- * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @license  The MIT License (MIT)
- * @author  DFRobot
- * @version  V1.0
- * @date  2018-01-10
- */
 #include <SoftwareSerial.h>
 
 int i;
