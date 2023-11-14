@@ -26,7 +26,7 @@ void loop()
       //These are the conditions for the start of a batch
       if (dat[i] == 0x57 && dat[i + 1] == 0 && dat[i + 2] == 0xFFFFFFFF && dat[i + 3] == 0) {
         //These are the indexes with the data, check for data
-        if (dat[i + 12] + dat[i + 13] * 255 == 0) {
+        if (dat[i + 12] + dat[i + 13] * 255 == 0 || (dat[i + 10] * 255 + dat[i + 9]) * 255 + dat[i + 8] > 8000) {
           Serial.println("Out of range!");
           analogWrite(7, 0);
         } else {
@@ -46,9 +46,6 @@ void loop()
           Serial.println("mm");
           //Based on distance data, supply power to the motor pin
           if (q <= 500) {
-            analogWrite(7, 0);
-          }
-          else if (q > 8000) {
             analogWrite(7, 0);
           }
           else if (q > 500 && q <= 2000) {
