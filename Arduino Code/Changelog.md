@@ -4,3 +4,5 @@ Committed the original file into the repository with the ability to sense distan
 Changed around some of the descriptions to fit properly into newer code and added more robust descriptions
 # 11/14/2023 3:05 PM EST
 Made it so no data will be displayed when distance > 8000mm
+# 11/16/2023 3:14 PM EST
+Turned the data into 8 bit unsigned integers to prevent overflow of one data type to the other
