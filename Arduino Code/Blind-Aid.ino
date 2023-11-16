@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
 int i;
-int dat[32] = { 0 };
+uint8_t dat[32] = { 0 };
 unsigned long a, p, q, z, t;
 SoftwareSerial mySerial(11, 10); // RX, TX
 
@@ -24,7 +24,7 @@ void loop()
     //Figure out where the start of the first contiguous batch of data is
     for (i = 0;i < 16;i++) {
       //These are the conditions for the start of a batch
-      if (dat[i] == 0x57 && dat[i + 1] == 0 && dat[i + 2] == 0xFFFFFFFF && dat[i + 3] == 0) {
+      if (dat[i] == 0x57 && dat[i + 1] == 0 && dat[i + 2] == 0xFF && dat[i + 3] == 0) {
         //These are the indexes with the data, check for data
         if (dat[i + 12] + dat[i + 13] * 255 == 0 || (dat[i + 10] * 255 + dat[i + 9]) * 255 + dat[i + 8] > 8000) {
           Serial.println("Out of range!");
