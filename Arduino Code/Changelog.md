@@ -6,3 +6,5 @@ Changed around some of the descriptions to fit properly into newer code and adde
 Made it so no data will be displayed when distance > 8000mm
 # 11/16/2023 3:14 PM EST
 Turned the data into 8 bit unsigned integers to prevent overflow of one data type to the other
+# 11/25/2023 6:34 PM EST
+Converted the code to use the TOFSense-M sensor instead of the TOFSense-P, and then using the average distance to send voltage to the motor associated with each sensor in cascade. This is using a radar style approach where we go around the person, using one sensor at a time.
