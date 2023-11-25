@@ -1,71 +1,121 @@
 #include <SoftwareSerial.h>
 
-int i;
-uint8_t dat[32] = { 0 };
-unsigned long a, p, q, z, t;
+int i, k, l;
+uint8_t dat[458] = { 0 };
+unsigned long v, t, avg, sum, count;
 SoftwareSerial mySerial(11, 10); // RX, TX
 
 void setup()
 {
-  //This is where the motor will be connected
   pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
   Serial.begin(115200);
   mySerial.begin(115200);
 }
 
 void loop()
 {
-  //If the sensor is providing data
-  if (mySerial.available() >= 32) {
-    for (i = 0;i < 32;i++) {
+  //if the sensor is providing data
+  if (mySerial.available() >= 458) {
+    for (i = 0;i < 458;i++) {
       dat[i] = mySerial.read();
     }
 
-    //Figure out where the start of the first contiguous batch of data is
-    for (i = 0;i < 16;i++) {
-      //These are the conditions for the start of a batch
-      if (dat[i] == 0x57 && dat[i + 1] == 0 && dat[i + 2] == 0xFF && dat[i + 3] == 0) {
-        //These are the indexes with the data, check for data
-        if (dat[i + 12] + dat[i + 13] * 255 == 0 || (dat[i + 10] * 255 + dat[i + 9]) * 255 + dat[i + 8] > 8000) {
-          Serial.println("Out of range!");
-          analogWrite(7, 0);
-        } else {
-          //If data print out data
+    //figure out where the start of the first contiguous batch of data is
+    for (k = 7; k < 9; k++) {
+      for (i = 0; i < 229; i++) {
+        //these are the conditions for the start of a batch
+        if (dat[i] == 0x57 && dat[i + 1] == 0x01 && dat[i + 2] == 0xFF && dat[i + 3] == 0) {
+          //print out time
           t = ((dat[i + 7] * 255 + dat[i + 6]) * 255 + dat[i + 5]) * 255 + dat[i + 4];
           Serial.print("Time = ");
           Serial.print(t);
-          z = dat[i + 11];
-          Serial.print(" Status = ");
-          Serial.print(z);
-          p = dat[i + 12] + dat[i + 13] * 255;
-          Serial.print("  Strength = ");
-          Serial.print(p);
-          q = (dat[i + 10] * 255 + dat[i + 9]) * 255 + dat[i + 8];
-          Serial.print("  Distance = ");
-          Serial.print(q);
-          Serial.println("mm");
-          //Based on distance data, supply power to the motor pin
-          if (q <= 500) {
-            analogWrite(7, 0);
+          //find avg distance out of 64 data points
+          for (l = 0; l < 64; l++) {
+            //if signal strength is 0, move onto next data point
+            if (dat[i + 13 + (6 * l)] + dat[i + 14 + (6 * l)] * 255 == 0) {
+              continue;
+            }
+            //if signal strength is not 0 add to sum
+            else {
+              count++;
+              sum += ((dat[i + 11 + (6 * l)] * 255 + dat[i + 10 + (6 * l)]) * 255 + dat[i + 9 + (6 * l)]);
+            }
           }
-          else if (q > 500 && q <= 2000) {
-            analogWrite(7, 255);
+          avg = sum / count;
+          Serial.print(" Average Distance = ");
+          Serial.println(avg);
+          if (avg <= 500) {
+            v = 0;
           }
-          else if (q > 2000 && q <= 3500) {
-            analogWrite(7, 204);
+          else if (avg > 500 && avg <= 2000) {
+            v = 5;
           }
-          else if (q > 3500 && q <= 5000) {
-            analogWrite(7, 153);
+          else if (avg > 1500 && avg <= 3000) {
+            v = 4;
           }
-          else if (q > 5000 && q <= 6500) {
-            analogWrite(7, 102);
+          else if (avg > 3000 && avg <= 4500) {
+            v = 3;
           }
-          else if (q > 6500 && q <= 8000) {
-            analogWrite(7, 51);
+          else if (avg > 4500 && avg <= 6000) {
+            v = 2;
           }
+          else if (avg > 6000 && avg <= 7500) {
+            v = 1;
+          }
+          else {
+            v = 0;
+          }
+          //decide which motor to give voltage to based on sensor number
+          switch (k) {
+            case 7:
+              switch (v) {
+                case 0:
+                  analogWrite(k, 0);
+                  break;
+                case 1:
+                  analogWrite(k, 51);
+                  break;
+                case 2:
+                  analogWrite(k, 102);
+                  break;
+                case 3:
+                  analogWrite(k, 153);
+                  break;
+                case 4:
+                  analogWrite(k, 204);
+                  break;
+                case 5:
+                  analogWrite(k, 255);
+                  break;
+              }
+              break;
+            case 8:
+              switch (v) {
+                case 0:
+                  analogWrite(k, 0);
+                  break;
+                case 1:
+                  analogWrite(k, 51);
+                  break;
+                case 2:
+                  analogWrite(k, 102);
+                  break;
+                case 3:
+                  analogWrite(k, 153);
+                  break;
+                case 4:
+                  analogWrite(k, 204);
+                  break;
+                case 5:
+                  analogWrite(k, 255);
+                  break;
+              }
+              break;
+          }
+          //found the contiguous batch of data, break out and look for the next sensor data
+          break;
         }
-        //Found the contiguous batch of data, break out and look for the next contiguous batch of data
-        break;
       }
     }
   }
