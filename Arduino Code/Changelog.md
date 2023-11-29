@@ -10,3 +10,5 @@ Turned the data into 8 bit unsigned integers to prevent overflow of one data typ
 Converted the code to use the TOFSense-M sensor instead of the TOFSense-P, and then using the average distance to send voltage to the motor associated with each sensor in cascade. This is using a radar style approach where we go around the person, using one sensor at a time.
 # 11/25/2023 6:44 PM EST
 Fixed an error in the code that made it so that only one sensor's data was used for each motor. Now each sensor's data should be scanned.
+# 11/29/2023 5:18 PM EST
+Fixed an error where sum, avg, and count kept increasing and made it easier to distinguish when the program is changing sensors.
