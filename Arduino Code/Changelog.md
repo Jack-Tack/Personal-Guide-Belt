@@ -12,3 +12,5 @@ Converted the code to use the TOFSense-M sensor instead of the TOFSense-P, and t
 Fixed an error in the code that made it so that only one sensor's data was used for each motor. Now each sensor's data should be scanned.
 # 11/29/2023 5:18 PM EST
 Fixed an error where sum, avg, and count kept increasing and made it easier to distinguish when the program is changing sensors.
+# 1/18/2024 2:13 PM EST
+Switched functionality to work with TOFSense-M sensors rather than TOFSense-P, which allows for greater accuracy and gives more context to the user. Additionally, split the sensor into 4 quadrants, enabling us to use 4 separate motors for each sensor, which can allow for us to provide more situational awareness to the user.
