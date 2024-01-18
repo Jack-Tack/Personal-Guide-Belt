@@ -1,3 +1,3 @@
-# Blind-Aid
-GitHub repository for the Blind Aid project\
+# Personal Guide Belt
+GitHub repository for the Personal Guide Belt\
 Created by Aidan Rudd, Jett Tinik, Matthew Bairstow, Philip Mascaro, and Jeffrey Tharakan
