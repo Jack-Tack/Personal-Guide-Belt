@@ -2,7 +2,7 @@
 // defines pins numbers
 const int trigPin = 8;
 const int echoPin = 9;
-SoftwareSerial mySerial(11, 10); // RX, TX
+SoftwareSerial mySerial(1, 0); // RX, TX
 // defines variables
 long duration;
 uint8_t dat[800] = { 0 };
@@ -14,8 +14,8 @@ void setup() {
   pinMode(3, OUTPUT);
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
-  Serial.begin(9600); // Starts the serial communication
-  mySerial.begin(9600); // Starts the serial communication for lidar sensors
+  Serial.begin(115200); // Starts the serial communication
+  mySerial.begin(115200); // Starts the serial communication for lidar sensors
   distance = 10;
 }
 void loop() {
@@ -30,7 +30,7 @@ void loop() {
   duration = pulseIn(echoPin, HIGH);
   // Calculating the distance
   distance = duration * 0.034 / 2;
-  if (abs(distance2 - distance) > 600) {
+  if (abs(distance2 - distance) > 400) {
     distance2 = distance2;
   }
   // Prints the distance on the Serial Monitor
@@ -61,9 +61,10 @@ void loop() {
         }
       }
       avg = sum / count;
+      avg = avg / 10000;
       Serial.print("LIDAR Distance: ");
       Serial.print(avg);
-      Serial.println(" mm");
+      Serial.println(" cm");
     }
   }
   if (distance2 <= 50) {
@@ -87,25 +88,25 @@ void loop() {
   else if (distance2 > 300) {
     analogWrite(2, 0);
   }
-  if (avg <= 500) {
+  if (avg <= 50) {
     analogWrite(3, 0);
   }
-  else if (avg > 500 && avg <= 1000) {
+  else if (avg > 50 && avg <= 100) {
     analogWrite(3, 255);
   }
-  else if (avg > 1000 && avg <= 1500) {
+  else if (avg > 100 && avg <= 150) {
     analogWrite(3, 204);
   }
-  else if (avg > 1500 && avg <= 2000) {
+  else if (avg > 150 && avg <= 200) {
     analogWrite(3, 153);
   }
-  else if (avg > 2000 && avg <= 2500) {
+  else if (avg > 200 && avg <= 250) {
     analogWrite(3, 102);
   }
-  else if (avg > 2500 && avg <= 3000) {
+  else if (avg > 250 && avg <= 300) {
     analogWrite(3, 51);
   }
-  else if (avg > 3000) {
+  else if (avg > 300) {
     analogWrite(3, 0);
   }
 }
