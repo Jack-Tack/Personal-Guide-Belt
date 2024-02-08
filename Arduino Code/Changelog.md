@@ -16,3 +16,5 @@ Fixed an error where sum, avg, and count kept increasing and made it easier to d
 Switched functionality to work with TOFSense-M sensors rather than TOFSense-P, which allows for greater accuracy and gives more context to the user. Additionally, split the sensor into 4 quadrants, enabling us to use 4 separate motors for each sensor, which can allow for us to provide more situational awareness to the user.
 # 2/6/2024 3:22 PM EST
 Due to innacuracies in lidar sensing, swapped to a hybrid ultrasonic and lidar sensing. The ultrasonic sensors are used for forward and backward sensing as they are more accurate in that scenario. The lidar sensors are used in side movement sensing as they are much more accurate in detecting objects moving around.
+# 2/8/2024 3:50 PM EST
+Fixed some number discrepencies.
