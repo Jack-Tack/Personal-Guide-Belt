@@ -18,3 +18,5 @@ Switched functionality to work with TOFSense-M sensors rather than TOFSense-P, w
 Due to innacuracies in lidar sensing, swapped to a hybrid ultrasonic and lidar sensing. The ultrasonic sensors are used for forward and backward sensing as they are more accurate in that scenario. The lidar sensors are used in side movement sensing as they are much more accurate in detecting objects moving around.
 # 2/8/2024 3:50 PM EST
 Fixed some number discrepencies.
+# 2/23/2024 12:47 PM EST
+Swapped to fully ultrasonic sensing. Updated functionality to incorporate 4 sensors and motors simultaneously.
