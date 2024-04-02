@@ -1,3 +1,5 @@
+// WiFi
+#include "thingProperties.h"
 // defines pins numbers
 const int trigPin1 = 6;
 const int echoPin1 = 7;
@@ -9,7 +11,8 @@ const int trigPin4 = 10;
 const int echoPin4 = 11;
 // defines variables
 long duration1, duration2, duration3, duration4;
-int distance1, distance2, distance3, distance4, distance5, distance6, distance7, distance8;
+const int MAX_DISTANCE = 400;
+
 void setup() {
   pinMode(2, OUTPUT);
   pinMode(3, OUTPUT);
@@ -24,12 +27,12 @@ void setup() {
   pinMode(trigPin4, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin4, INPUT); // Sets the echoPin as an Input
   Serial.begin(115200); // Starts the serial communication
-  distance2 = 10;
-  distance4 = 10;
-  distance6 = 10;
-  distance8 = 10;
+  initProperties();
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
 }
+
 void loop() {
+  ArduinoCloud.update();
   // Clears the trigPin
   digitalWrite(trigPin1, LOW);
   delayMicroseconds(10);
@@ -57,132 +60,116 @@ void loop() {
   duration4 = pulseIn(echoPin4, HIGH);
   // Calculating the distance
   distance1 = duration1 * 0.034 / 2;
-  distance3 = duration2 * 0.034 / 2;
-  distance5 = duration3 * 0.034 / 2;
-  distance7 = duration4 * 0.034 / 2;
-  if (abs(distance2 - distance1) > 400) {
-    distance2 = distance2;
+  distance2 = duration2 * 0.034 / 2;
+  distance3 = duration3 * 0.034 / 2;
+  distance4 = duration4 * 0.034 / 2;
+  if (distance1 > MAX_DISTANCE) {
+    distance1 = MAX_DISTANCE;
   }
-  // Prints the distance on the Serial Monitor
-  else {
-    distance2 = distance1;
+  if (distance2 > MAX_DISTANCE) {
+    distance2 = MAX_DISTANCE;
   }
-  if (abs(distance4 - distance3) > 400) {
-    distance4 = distance4;
+  if (distance3 > MAX_DISTANCE) {
+    distance3 = MAX_DISTANCE;
   }
-  // Prints the distance on the Serial Monitor
-  else {
-    distance4 = distance3;
-  }
-  if (abs(distance6 - distance5) > 400) {
-    distance6 = distance6;
-  }
-  // Prints the distance on the Serial Monitor
-  else {
-    distance6 = distance5;
-  }
-  if (abs(distance8 - distance7) > 400) {
-    distance8 = distance8;
-  }
-  // Prints the distance on the Serial Monitor
-  else {
-    distance8 = distance7;
+  if (distance4 > MAX_DISTANCE) {
+    distance4 = MAX_DISTANCE;
   }
   Serial.println(millis());
   Serial.print("UltraSonic Distance 1: ");
-  Serial.print(distance2);
+  Serial.print(distance1);
   Serial.println(" cm");
   Serial.print("UltraSonic Distance 2: ");
-  Serial.print(distance4);
+  Serial.print(distance2);
   Serial.println(" cm");
   Serial.print("UltraSonic Distance 3: ");
-  Serial.print(distance6);
+  Serial.print(distance3);
   Serial.println(" cm");
   Serial.print("UltraSonic Distance 4: ");
-  Serial.print(distance8);
+  Serial.print(distance4);
   Serial.println(" cm");
-  if (distance2 <= 50) {
+  if (distance1 <= 50) {
     analogWrite(2, 0);
   }
-  else if (distance2 > 50 && distance2 <= 100) {
+  else if (distance1 > 50 && distance1 <= 100) {
     analogWrite(2, 255);
   }
-  else if (distance2 > 100 && distance2 <= 150) {
+  else if (distance1 > 100 && distance1 <= 150) {
     analogWrite(2, 204);
   }
-  else if (distance2 > 150 && distance2 <= 200) {
+  else if (distance1 > 150 && distance1 <= 200) {
     analogWrite(2, 153);
   }
-  else if (distance2 > 200 && distance2 <= 250) {
+  else if (distance1 > 200 && distance1 <= 250) {
     analogWrite(2, 102);
   }
-  else if (distance2 > 250 && distance2 <= 300) {
+  else if (distance1 > 250 && distance1 <= 300) {
     analogWrite(2, 51);
   }
-  else if (distance2 > 300) {
+  else if (distance1 > 300) {
     analogWrite(2, 0);
   }
-  if (distance4 <= 50) {
+  if (distance2 <= 50) {
     analogWrite(3, 0);
   }
-  else if (distance4 > 50 && distance4 <= 100) {
+  else if (distance2 > 50 && distance2 <= 100) {
     analogWrite(3, 255);
   }
-  else if (distance4 > 100 && distance4 <= 150) {
+  else if (distance2 > 100 && distance2 <= 150) {
     analogWrite(3, 204);
   }
-  else if (distance4 > 150 && distance4 <= 200) {
+  else if (distance2 > 150 && distance2 <= 200) {
     analogWrite(3, 153);
   }
-  else if (distance4 > 200 && distance4 <= 250) {
+  else if (distance2 > 200 && distance2 <= 250) {
     analogWrite(3, 102);
   }
-  else if (distance4 > 250 && distance4 <= 300) {
+  else if (distance2 > 250 && distance2 <= 300) {
     analogWrite(3, 51);
   }
-  else if (distance4 > 300) {
+  else if (distance2 > 300) {
     analogWrite(3, 0);
   }
-  if (distance6 <= 50) {
+  if (distance3 <= 50) {
     analogWrite(12, 0);
   }
-  else if (distance6 > 50 && distance6 <= 100) {
+  else if (distance3 > 50 && distance3 <= 100) {
     analogWrite(12, 255);
   }
-  else if (distance6 > 100 && distance6 <= 150) {
+  else if (distance3 > 100 && distance3 <= 150) {
     analogWrite(12, 204);
   }
-  else if (distance6 > 150 && distance6 <= 200) {
+  else if (distance3 > 150 && distance3 <= 200) {
     analogWrite(12, 153);
   }
-  else if (distance6 > 200 && distance6 <= 250) {
+  else if (distance3 > 200 && distance3 <= 250) {
     analogWrite(12, 102);
   }
-  else if (distance6 > 250 && distance6 <= 300) {
+  else if (distance3 > 250 && distance3 <= 300) {
     analogWrite(12, 51);
   }
-  else if (distance2 > 300) {
+  else if (distance3 > 300) {
     analogWrite(12, 0);
   }
-  if (distance8 <= 50) {
+  if (distance4 <= 50) {
     analogWrite(13, 0);
   }
-  else if (distance8 > 50 && distance8 <= 100) {
+  else if (distance4 > 50 && distance4 <= 100) {
     analogWrite(13, 255);
   }
-  else if (distance8 > 100 && distance8 <= 150) {
+  else if (distance4 > 100 && distance4 <= 150) {
     analogWrite(13, 204);
   }
-  else if (distance8 > 150 && distance8 <= 200) {
+  else if (distance4 > 150 && distance4 <= 200) {
     analogWrite(13, 153);
   }
-  else if (distance8 > 200 && distance8 <= 250) {
+  else if (distance4 > 200 && distance4 <= 250) {
     analogWrite(13, 102);
   }
-  else if (distance8 > 250 && distance8 <= 300) {
+  else if (distance4 > 250 && distance4 <= 300) {
     analogWrite(13, 51);
   }
-  else if (distance8 > 300) {
+  else if (distance4 > 300) {
     analogWrite(13, 0);
   }
 }
