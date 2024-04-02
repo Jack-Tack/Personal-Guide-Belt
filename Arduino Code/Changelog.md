@@ -20,3 +20,5 @@ Due to innacuracies in lidar sensing, swapped to a hybrid ultrasonic and lidar s
 Fixed some number discrepencies.
 # 2/23/2024 12:47 PM EST
 Swapped to fully ultrasonic sensing. Updated functionality to incorporate 4 sensors and motors simultaneously.
+# 4/2/2024 11:44 AM EST
+Improved error checking algorithm. Also included ability to wirelessly monitor the board via the Arduino Cloud.
