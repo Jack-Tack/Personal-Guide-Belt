@@ -22,3 +22,5 @@ Fixed some number discrepencies.
 Swapped to fully ultrasonic sensing. Updated functionality to incorporate 4 sensors and motors simultaneously.
 # 4/2/2024 11:44 AM EST
 Improved error checking algorithm. Also included ability to wirelessly monitor the board via the Arduino Cloud.
+# 4/22/2024 2:41 PM EST
+Commented out wireless monitoring for showcase performance. Increased power delivered to motors at greater distances.
