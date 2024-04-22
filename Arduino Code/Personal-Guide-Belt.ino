@@ -1,5 +1,5 @@
 // WiFi
-#include "thingProperties.h"
+//#include "thingProperties.h"
 // defines pins numbers
 const int trigPin1 = 6;
 const int echoPin1 = 7;
@@ -27,12 +27,12 @@ void setup() {
   pinMode(trigPin4, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin4, INPUT); // Sets the echoPin as an Input
   Serial.begin(115200); // Starts the serial communication
-  initProperties();
-  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+  //initProperties();
+  //ArduinoCloud.begin(ArduinoIoTPreferredConnection);
 }
 
 void loop() {
-  ArduinoCloud.update();
+  //ArduinoCloud.update();
   // Clears the trigPin
   digitalWrite(trigPin1, LOW);
   delayMicroseconds(10);
@@ -95,16 +95,16 @@ void loop() {
     analogWrite(2, 255);
   }
   else if (distance1 > 100 && distance1 <= 150) {
-    analogWrite(2, 204);
+    analogWrite(2, 225);
   }
   else if (distance1 > 150 && distance1 <= 200) {
-    analogWrite(2, 153);
+    analogWrite(2, 200);
   }
   else if (distance1 > 200 && distance1 <= 250) {
-    analogWrite(2, 102);
+    analogWrite(2, 175);
   }
   else if (distance1 > 250 && distance1 <= 300) {
-    analogWrite(2, 51);
+    analogWrite(2, 150);
   }
   else if (distance1 > 300) {
     analogWrite(2, 0);
@@ -116,16 +116,16 @@ void loop() {
     analogWrite(3, 255);
   }
   else if (distance2 > 100 && distance2 <= 150) {
-    analogWrite(3, 204);
+    analogWrite(3, 225);
   }
   else if (distance2 > 150 && distance2 <= 200) {
-    analogWrite(3, 153);
+    analogWrite(3, 200);
   }
   else if (distance2 > 200 && distance2 <= 250) {
-    analogWrite(3, 102);
+    analogWrite(3, 175);
   }
   else if (distance2 > 250 && distance2 <= 300) {
-    analogWrite(3, 51);
+    analogWrite(3, 150);
   }
   else if (distance2 > 300) {
     analogWrite(3, 0);
@@ -137,16 +137,16 @@ void loop() {
     analogWrite(12, 255);
   }
   else if (distance3 > 100 && distance3 <= 150) {
-    analogWrite(12, 204);
+    analogWrite(12, 225);
   }
   else if (distance3 > 150 && distance3 <= 200) {
-    analogWrite(12, 153);
+    analogWrite(12, 200);
   }
   else if (distance3 > 200 && distance3 <= 250) {
-    analogWrite(12, 102);
+    analogWrite(12, 175);
   }
   else if (distance3 > 250 && distance3 <= 300) {
-    analogWrite(12, 51);
+    analogWrite(12, 150);
   }
   else if (distance3 > 300) {
     analogWrite(12, 0);
@@ -158,16 +158,16 @@ void loop() {
     analogWrite(13, 255);
   }
   else if (distance4 > 100 && distance4 <= 150) {
-    analogWrite(13, 204);
+    analogWrite(13, 225);
   }
   else if (distance4 > 150 && distance4 <= 200) {
-    analogWrite(13, 153);
+    analogWrite(13, 200);
   }
   else if (distance4 > 200 && distance4 <= 250) {
-    analogWrite(13, 102);
+    analogWrite(13, 175);
   }
   else if (distance4 > 250 && distance4 <= 300) {
-    analogWrite(13, 51);
+    analogWrite(13, 150);
   }
   else if (distance4 > 300) {
     analogWrite(13, 0);
